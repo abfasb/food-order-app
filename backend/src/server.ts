@@ -1,5 +1,3 @@
-import routes from "../routes/createRouteFirst";
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -8,7 +6,8 @@ const cors = require('cors');
 const app = express();
 const PORT = 5000;
 
-mongoose.connect(process.env.Mongo_DB)
+const uri = "mongodb+srv://matbalinton:root@matdb.iv1uwka.mongodb.net/?retryWrites=true&w=majority&appName=matDb";
+mongoose.connect(uri)
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Server is connected to port ${PORT}`);
@@ -20,5 +19,15 @@ mongoose.connect(process.env.Mongo_DB)
 
 app.use(bodyParser.json());
 app.use(cors());
+
+
+
+//api/my/user -- myUserRoute
+//api/my/restaurant -- myRestaurantRoute
+//api/restaurant --restaurantRoute
+//api/order --orderRoute
+
+//Controller MyRestaurantController, MyUserController, OrderController, RestaurantController
+
 
 
