@@ -38,8 +38,23 @@ const getUser = async (req: Request, res: Response) => {
 }
 
 const updateUser = async (req: Request, res: Response) {
-
+//name, addressLine1, city, country
     try {
+        const { name, addressLine1, city, country } = req.body;
+        const user = await User.findById(req.userId);
+
+        if (!user) {
+            res.status(404).send({message: "User not found."});
+        }
+
+        user.name = name;
+        user.addressLine1 = addressLine1;
+        user.city = city;
+        user.country = country;
+
+        await user.save();
+
+        res.status(200).send(user);
         
     }
     catch(error) {
