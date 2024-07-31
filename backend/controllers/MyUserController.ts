@@ -37,7 +37,7 @@ const getUser = async (req: Request, res: Response) => {
     }
 }
 
-const deleteUser = async (req: Request, res: Response) {
+const updateUser = async (req: Request, res: Response) {
 
     try {
         
@@ -47,4 +47,4 @@ const deleteUser = async (req: Request, res: Response) {
     }
 }
 
-export default { createUser, getUser, deleteUser }
+export default { createUser, getUser, updateUser }
