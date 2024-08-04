@@ -31,4 +31,4 @@ const User = mongoose.model("User", userSchema);
 
 export default User;
 
-//auth0Id, email, name, addressLine1, city, country
+//auth0Id, email, 

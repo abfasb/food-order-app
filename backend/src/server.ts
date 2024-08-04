@@ -1,3 +1,5 @@
+import myUserRoute from '../controllers/MyUserController';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -20,6 +22,10 @@ mongoose.connect(uri)
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use('/api/my/user', myUserRoute);
+app.use('/api/my/restaurant', myRestaurantRoute);
+app.use('/api/restaurant', restaurantRoute);
+app.use('/api/my/user', orderRoute);
 
 
 //api/my/user -- myUserRoute
