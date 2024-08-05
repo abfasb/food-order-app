@@ -1,9 +1,12 @@
 import myUserRoute from '../controllers/MyUserController';
+import myRestaurantRoute from '../routes/myRestaurant';
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const multer = require('multer');
+const cloudinary = require('cloudinary')
 
 const app = express();
 const PORT = 5000;
@@ -19,13 +22,21 @@ mongoose.connect(uri)
         console.error('Something went wrong:', error);
     });
 
+
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/api/my/user', myUserRoute);
-app.use('/api/my/restaurant', myRestaurantRoute);
-app.use('/api/restaurant', restaurantRoute);
-app.use('/api/my/user', orderRoute);
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+
+//app.use('/api/my/user', myUserRoute);
+//app.use('/api/my/restaurant', myRestaurantRoute);
+//app.use('/api/restaurant', restaurantRoute);
+//app.use('/api/my/user', orderRoute);
 
 
 //api/my/user -- myUserRoute
