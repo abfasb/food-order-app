@@ -6,12 +6,13 @@ import mongoose from "mongoose";
 const express = require('express');
 
 const createCurrentUser = async(req : Request, res : Response) => {
+    try {
     const findRestaurant = await Restaurant.findOne({ user: req.userId});
 
     if (!findRestaurant) {
         return res.status(409).json({ message: "Restaurant already exists"});
     }
-
+    const imageUrl = UploadImage(req.file as Express.Multer.File)
     const restaurant = new Restaurant(req.body);
     restaurant.image = imageUrl;
     restaurant.user = new mongoose.Types.ObjectId(req.userId);
@@ -20,14 +21,54 @@ const createCurrentUser = async(req : Request, res : Response) => {
     await restaurant.save();
 
     res.status(201).send(restaurant);
+} catch(error) {
+    res.status(500).send(error);
+}
 }
 
-const updateCurrentUser = async() => {
+const updateCurrentUser = async(req: Request, res : Response) => {
+    
+    try {
+        const restaurant = await Restaurant.findOne({ user: req.userId });
 
+        if (!restaurant) {
+            return res.status(404).json({ message: "Restaurant not Found"})
+        }
+
+        restaurant.restaurantName = req.body.restaurantName;
+        restaurant.city = req.body.city;
+        restaurant.country = req.body.country;
+        restaurant.deliveryPrice = req.body.deliveryPrice;
+        restaurant.estimtedDeliveryTime = req.body.estimtedDeliveryTime;
+        restaurant.cuisines = req.body.cuisines;
+        restaurant.menuItems = req.body.menuItems;
+        restaurant.lastUpdated = new Date();
+
+        if (req.file) {
+            const imageUrl = UploadImage(req.file as Express.Multer.File);
+            restaurant.image = imageUrl
+        }
+
+        await restaurant.save;
+        res.status(200).send(restaurant);
+
+    }catch(error) {
+        res.status(500).send(error)
+    }
 }
 
-const getCurrentUser = async() => {
+const getCurrentUser = async(req : Request, res : Response) => {
+    try {
+    const getCurUser = await Restaurant.findOne({ user: req.userId});
 
+    if(!getCurUser) {
+       return res.status(404).json({ message: "Restaurant not Found"});
+    }
+    res.json(getCurUser);
+
+    } catch(error) {
+        res.status(500).send(error);
+    }
 }
 
 const UploadImage = async(file: Express.Multer.File) => {
