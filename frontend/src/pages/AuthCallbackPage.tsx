@@ -21,4 +21,5 @@ const AuthCallbackPage = () => {
   return <>Loading...</>;
 };
 
+
 export default AuthCallbackPage;
