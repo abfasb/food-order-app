@@ -1,12 +1,12 @@
 import myUserRoute from '../controllers/MyUserController';
 import myRestaurantRoute from '../routes/myRestaurant';
+import { v2 as cloudinary } from 'cloudinary';
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
-const cloudinary = require('cloudinary')
 
 const app = express();
 const PORT = 5000;
@@ -34,7 +34,7 @@ cloudinary.config({
 
 
 //app.use('/api/my/user', myUserRoute);
-//app.use('/api/my/restaurant', myRestaurantRoute);
+app.use('/api/my/restaurant', myRestaurantRoute);
 //app.use('/api/restaurant', restaurantRoute);
 //app.use('/api/my/user', orderRoute);
 

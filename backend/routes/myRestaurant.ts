@@ -4,8 +4,9 @@ const express = require('express');
 
 const router = express.Router();
 
-router.post('/', MyRestaurantController.createUser);
-router.post('/', MyRestaurantController.getUser);
-router.post('/', MyRestaurantController.createUser);
+router.post('/', MyRestaurantController.createCurrentUser);
+router.post('/', MyRestaurantController.getCurrentUser);
+router.post('/', MyRestaurantController.updateCurrentUser);
 
 export default router;
+

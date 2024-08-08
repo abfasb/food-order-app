@@ -5,11 +5,19 @@ import cloudinary from 'cloudinary';
 import mongoose from "mongoose";
 const express = require('express');
 
+declare global {
+    namespace Express {
+      interface Request {
+        userId?: string; // or number if you use number for userId
+      }
+    }
+  }
+
 const createCurrentUser = async(req : Request, res : Response) => {
     try {
     const findRestaurant = await Restaurant.findOne({ user: req.userId});
 
-    if (!findRestaurant) {
+    if (findRestaurant) {
         return res.status(409).json({ message: "Restaurant already exists"});
     }
     const imageUrl = UploadImage(req.file as Express.Multer.File)
