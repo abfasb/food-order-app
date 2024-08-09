@@ -8,7 +8,7 @@ const express = require('express');
 declare global {
     namespace Express {
       interface Request {
-        userId?: string; // or number if you use number for userId
+        userId?: string;
       }
     }
   }
@@ -20,7 +20,7 @@ const createCurrentUser = async(req : Request, res : Response) => {
     if (findRestaurant) {
         return res.status(409).json({ message: "Restaurant already exists"});
     }
-    const imageUrl = UploadImage(req.file as Express.Multer.File)
+    const imageUrl = await UploadImage(req.file as Express.Multer.File)
     const restaurant = new Restaurant(req.body);
     restaurant.image = imageUrl;
     restaurant.user = new mongoose.Types.ObjectId(req.userId);
@@ -47,17 +47,17 @@ const updateCurrentUser = async(req: Request, res : Response) => {
         restaurant.city = req.body.city;
         restaurant.country = req.body.country;
         restaurant.deliveryPrice = req.body.deliveryPrice;
-        restaurant.estimtedDeliveryTime = req.body.estimtedDeliveryTime;
+        restaurant.estimtedDeliveryTime = req.body.estimatedDeliveryTime;
         restaurant.cuisines = req.body.cuisines;
         restaurant.menuItems = req.body.menuItems;
         restaurant.lastUpdated = new Date();
 
         if (req.file) {
-            const imageUrl = UploadImage(req.file as Express.Multer.File);
+            const imageUrl = await UploadImage(req.file as Express.Multer.File);
             restaurant.image = imageUrl
         }
 
-        await restaurant.save;
+        await restaurant.save();
         res.status(200).send(restaurant);
 
     }catch(error) {
