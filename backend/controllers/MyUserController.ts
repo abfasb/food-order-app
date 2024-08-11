@@ -2,8 +2,7 @@ import User from '../models/user';
 import { Request, Response } from 'express';
 
 
-
-const createUser = async(req: Request, res: Response) => {
+const createCurrentUser = async(req: Request, res: Response) => {
     try {
         const { auth0Id } = req.body;
     const currentUser = await User.findOne(auth0Id);
@@ -24,7 +23,7 @@ const createUser = async(req: Request, res: Response) => {
     }
 }
 
-const getUser = async (req: Request, res: Response) => {
+const getCurrentUser = async (req: Request, res: Response) => {
 
     try {
         const { userId } = req.body
@@ -39,4 +38,28 @@ const getUser = async (req: Request, res: Response) => {
     }
 }
 
-export default { createUser, getUser }
+const updateCurrentUser = async(req : Request, res : Response) => {
+    try {
+        const user = await User.findById(req.userId);
+        const { name, addressLine1, country, city } = req.body;
+
+        if (!user) {
+            res.status(404).json({ message: "User not found"}
+            )
+        }
+        user.name = name;
+        user.addressLine1 = addressLine1;
+        user.country = country;
+        user.city = city;
+
+        await user.save();
+        
+        res.send(user);
+    //name, addressLine1, country, city
+
+    } catch(error) {
+        res.send(500).send(error)
+    }
+}
+
+export default { createCurrentUser, getCurrentUser, updateCurrentUser }

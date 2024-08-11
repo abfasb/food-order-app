@@ -1,8 +1,7 @@
 import { auth } from 'express-oauth2-jwt-bearer'
 import { Request, Response, NextFunction } from 'express';
-import { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import User from '../models/user';
-const jwt = require('jsonwebtoken');
 const express = require('express');
 
 
@@ -22,6 +21,10 @@ export const jwtCheck = auth({
     tokenSigningAlg: 'RS256'
   });
 
+  console.log('AUDIENCE_URL:', process.env.AUDIENCE_URL);
+    console.log('BASE_URL:', process.env.BASE_URL);
+
+
 
 export const jwtParse = async(req : Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers;
@@ -33,7 +36,7 @@ export const jwtParse = async(req : Request, res: Response, next: NextFunction) 
     const token = authorization.split(" ")[1];
 
     try {
-        const decoded = jwt.decode(token) as JwtPayload
+        const decoded = jwt.decode(token) as jwt.JwtPayload
         const auth0Id = decoded.sub;
 
         const user = await User.findOne({auth0Id})
@@ -41,7 +44,7 @@ export const jwtParse = async(req : Request, res: Response, next: NextFunction) 
             return res.sendStatus(401);
         }
         req.auth0Id = auth0Id as string
-        req.userId = User._id.toString();
+        req.userId = user._id.toString();
         next();
     }   
     catch (error) {
