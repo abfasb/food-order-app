@@ -6,4 +6,4 @@ const express = require('express');
 const Router = express.Router();
 
 Router.post('/', jwtCheck, MyUserController.createUser);
-Router.get('/', jwtCheck, MyUserController.getUser);
+Router.get('/', jwtCheck, jwtParse, MyUserController.getUser);
