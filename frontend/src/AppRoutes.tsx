@@ -8,6 +8,7 @@ import ManageRestaurantPage from "./pages/ManageRestaurantPage";
 import SearchPage from "./pages/SearchPage";
 import DetailPage from "./pages/DetailPage";
 import OrderStatusPage from "./pages/OrderStatusPage";
+import TryLang from "./pages/TryLang";
 
 const AppRoutes = () => {
   return (
@@ -63,6 +64,8 @@ const AppRoutes = () => {
           }
         />
       </Route>
+      
+      
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
