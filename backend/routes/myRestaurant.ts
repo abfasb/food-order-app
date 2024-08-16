@@ -15,6 +15,7 @@ const express = require('express');
 
 const router = express.Router();
 
+router.patch('/order/:orderId/status', jwtCheck, jwtParse, MyRestaurantController.updateOrderStatus);
 router.post('/', upload.single("imageFile"), validateMyRestaurantRequest, jwtCheck, jwtParse, MyRestaurantController.createCurrentUser);
 router.get('/', jwtCheck, jwtParse, MyRestaurantController.getCurrentUser);
 router.put('/', upload.single("imageFile"), validateMyRestaurantRequest, jwtCheck, jwtParse, MyRestaurantController.updateCurrentUser);
