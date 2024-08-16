@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.post('/', upload.single("imageFile"), validateMyRestaurantRequest, jwtCheck, jwtParse, MyRestaurantController.createCurrentUser);
 router.get('/', jwtCheck, jwtParse, MyRestaurantController.getCurrentUser);
-router.put('/', jwtCheck, jwtParse, MyRestaurantController.updateCurrentUser);
+router.put('/', upload.single("imageFile"), validateMyRestaurantRequest, jwtCheck, jwtParse, MyRestaurantController.updateCurrentUser);
 
 export default router;
 

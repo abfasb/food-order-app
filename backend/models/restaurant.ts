@@ -1,3 +1,4 @@
+import { InferSchemaType  } from "mongoose";
 const mongoose = require('mongoose');
 
 const menuItemSchema = new mongoose.Schema({
@@ -15,6 +16,8 @@ const menuItemSchema = new mongoose.Schema({
         required: true
     }
 })
+
+export type MenuItemType = InferSchemaType<typeof menuItemSchema>;
 
 //user, restaurantName, city, country, deliveryPrice, estimatedDeliveryTime, cuisines, menuItems, imageUrl, lastUpdated
 //menuItemSchema (_id, name: price)
