@@ -33,7 +33,7 @@ cloudinary.config({
 });
 
 
-//app.use('/api/my/user', myUserRoute);
+app.use('/api/my/user', myUserRoute);
 app.use('/api/my/restaurant', myRestaurantRoute);
 //app.use('/api/restaurant', restaurantRoute);
 //app.use('/api/my/user', orderRoute);

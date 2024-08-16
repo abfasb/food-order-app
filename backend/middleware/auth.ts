@@ -2,6 +2,9 @@ import { auth } from 'express-oauth2-jwt-bearer'
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 const express = require('express');
 
 
@@ -21,8 +24,6 @@ export const jwtCheck = auth({
     tokenSigningAlg: 'RS256'
   });
 
-  console.log('AUDIENCE_URL:', process.env.AUDIENCE_URL);
-    console.log('BASE_URL:', process.env.BASE_URL);
 
 
 
