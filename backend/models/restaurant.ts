@@ -19,9 +19,6 @@ const menuItemSchema = new mongoose.Schema({
 
 export type MenuItemType = InferSchemaType<typeof menuItemSchema>;
 
-//user, restaurantName, city, country, deliveryPrice, estimatedDeliveryTime, cuisines, menuItems, imageUrl, lastUpdated
-//menuItemSchema (_id, name: price)
-
 const RestaurantSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
